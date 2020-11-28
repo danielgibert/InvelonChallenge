@@ -1,8 +1,8 @@
 import tensorflow as tf
 
 def _parse_tfrecord_function(example):
-    width = 480
-    height = 640
+    width = 224
+    height = 224
 
     image_feature_description = {
         'height': tf.io.FixedLenFeature([], tf.int64),
@@ -22,7 +22,7 @@ def _parse_tfrecord_function(example):
     decoded_img = tf.cast(decoded_img, tf.float32) / 255.0  # convert image to floats in [0, 1] range
     return decoded_img, parsed['label']
 
-def make_dataset(filepath, SHUFFLE_BUFFER_SIZE=1024, BATCH_SIZE=4, EPOCHS=5):
+def make_dataset(filepath, SHUFFLE_BUFFER_SIZE=1024, BATCH_SIZE=1, EPOCHS=5):
     dataset = tf.data.TFRecordDataset(filepath)
     dataset = dataset.shuffle(SHUFFLE_BUFFER_SIZE)
     #dataset = dataset.repeat(EPOCHS)
