@@ -1,8 +1,10 @@
 from stl import mesh
 from mpl_toolkits import mplot3d
+import matplotlib
 from matplotlib import pyplot
 import math
 from PIL import Image, ImageOps
+matplotlib.use('Agg')
 
 
 def write_stl_data_to_img(your_mesh, output_filename):
@@ -22,7 +24,6 @@ def write_stl_data_to_img(your_mesh, output_filename):
 def rgb_to_grayscale(input_filename, output_filename):
     # creating an og_image object
     og_image = Image.open(input_filename)
-    og_image.show()
 
     # applying grayscale method
     gray_image = ImageOps.grayscale(og_image)
