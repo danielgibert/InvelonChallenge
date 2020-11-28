@@ -1,14 +1,13 @@
 from stl import mesh
 from mpl_toolkits import mplot3d
 from matplotlib import pyplot
+import math
+from PIL import Image, ImageOps
 
-def plot_mesh_stl_file(stl_filename):
-    # Create a new plot
+
+def write_stl_data_to_img(your_mesh, output_filename):
     figure = pyplot.figure()
     axes = mplot3d.Axes3D(figure)
-
-    # Load the STL files and add the vectors to the plot
-    your_mesh = mesh.Mesh.from_file(stl_filename)
     axes.add_collection3d(mplot3d.art3d.Poly3DCollection(your_mesh.vectors))
 
     # Auto scale to the mesh size
@@ -16,6 +15,15 @@ def plot_mesh_stl_file(stl_filename):
     axes.auto_scale_xyz(scale, scale, scale)
 
     # Show the plot to the screen
-    pyplot.show()
+    pyplot.axis('off')
+    print(f"Save figure in: {output_filename}")
+    pyplot.savefig(output_filename)
 
-plot_mesh_stl_file('../../data/examples/Ender+3+Bed+Level/files/Bed_Levelling_Ender_3.stl')
+def rgb_to_grayscale(input_filename, output_filename):
+    # creating an og_image object
+    og_image = Image.open(input_filename)
+    og_image.show()
+
+    # applying grayscale method
+    gray_image = ImageOps.grayscale(og_image)
+    gray_image.save(output_filename)
