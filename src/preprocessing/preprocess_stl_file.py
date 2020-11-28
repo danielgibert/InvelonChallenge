@@ -28,40 +28,35 @@ def preprocess(stl_filepath):
 
     count=0
     axis = [0.0, 0.0, 0.0]
-    max_axis = 6
-    start_load_time = time.time()
+    #start_load_time = time.time()
     my_mesh = mesh.Mesh.from_file(stl_filepath)
-    end_load_time = time.time()
-    print("Image: {}; Load time: {}s".format(stl_filepath, end_load_time-start_load_time))
+    #end_load_time = time.time()
+    #print("Image: {}; Load time: {}s".format(stl_filepath, end_load_time-start_load_time))
 
     for i in range(len(axis)):
         # Iterates over the axis
         axis = [0.0, 0.0, 0.0]
         axis[i] += 0.5
-        print(axis)
-        for radians in range(0,90,10):
+        for k in range(0,4):
+            #for radians in range(0,90,30):
             rgb_filename = filename+"{}.png".format(count)
-            print(rgb_filename)
-            print(radians)
+            radians = random.randint(0,91)
             #my_mesh_copy = copy.copy(my_mesh)
-            start_mutation_time = time.time()
+            #start_mutation_time = time.time()
             my_mesh.rotate(axis, math.radians(radians))
             # Apply translation
-            x_translation = random.randint(0, 10)
-            y_translation = random.randint(0, 10)
+            x_translation = random.randint(0, 50)
+            y_translation = random.randint(0, 50)
 
             my_mesh.x += x_translation
             my_mesh.y += y_translation
-            end_mutation_time = time.time()
-            print("Time modifications: {}".format(end_mutation_time-start_mutation_time))
-            # Add a little bit of translation
-            #for translation_index in range(0,5):
-            #    x_translation =
-            #    y_translation =
-            start_write_time = time.time()
+            #end_mutation_time = time.time()
+            #print("Time modifications: {}".format(end_mutation_time-start_mutation_time))
+
+            #start_write_time = time.time()
             write_stl_data_to_img(my_mesh, rgb_filepath+rgb_filename)
-            end_write_time = time.time()
-            print("Saving time: {}".format(end_write_time-start_write_time))
+            #end_write_time = time.time()
+            #print("Saving time: {}".format(end_write_time-start_write_time))
             rgb_to_grayscale(rgb_filepath+rgb_filename, grayscale_filepath+rgb_filename)
 
             # Turn to original
@@ -80,6 +75,6 @@ def preprocess(stl_filepath):
     # my_mesh.x += 2
     # my_mesh.y += 2
 
-
-preprocess('../../data/examples/Psyduck(Pokemon)/files/Psyduck.stl')
+preprocess('../../data/examples/Ender+3+Bed+Level/files/Bed_Levelling_Ender_3.stl')
+#preprocess('../../data/examples/Psyduck(Pokemon)/files/Psyduck.stl')
 
