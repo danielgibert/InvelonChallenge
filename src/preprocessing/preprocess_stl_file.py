@@ -75,6 +75,6 @@ def preprocess(stl_filepath):
     # my_mesh.x += 2
     # my_mesh.y += 2
 
-preprocess('../../data/examples/Ender+3+Bed+Level/files/Bed_Levelling_Ender_3.stl')
-preprocess('../../data/examples/Psyduck(Pokemon)/files/Psyduck.stl')
+#preprocess('../../data/examples/Ender+3+Bed+Level/files/Bed_Levelling_Ender_3.stl')
+#preprocess('../../data/examples/Psyduck(Pokemon)/files/Psyduck.stl')
 
