@@ -1,10 +1,10 @@
 from stl import mesh
 from mpl_toolkits import mplot3d
-import matplotlib
+#import matplotlib
 from matplotlib import pyplot
 import math
 from PIL import Image, ImageOps
-matplotlib.use('Agg')
+#matplotlib.use('Agg')
 
 
 def write_stl_data_to_img(your_mesh, output_filename):
