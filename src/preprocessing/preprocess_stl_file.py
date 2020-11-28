@@ -39,7 +39,7 @@ def preprocess(stl_filepath):
         axis[i] += 0.5
         for k in range(0,4):
             #for radians in range(0,90,30):
-            rgb_filename = filename+"{}.png".format(count)
+            rgb_filename = filename+"{}.jpeg".format(count)
             radians = random.randint(0,91)
             #my_mesh_copy = copy.copy(my_mesh)
             #start_mutation_time = time.time()
@@ -76,5 +76,5 @@ def preprocess(stl_filepath):
     # my_mesh.y += 2
 
 preprocess('../../data/examples/Ender+3+Bed+Level/files/Bed_Levelling_Ender_3.stl')
-#preprocess('../../data/examples/Psyduck(Pokemon)/files/Psyduck.stl')
+preprocess('../../data/examples/Psyduck(Pokemon)/files/Psyduck.stl')
 
