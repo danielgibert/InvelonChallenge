@@ -71,7 +71,7 @@ def predict(model_filepath, stl_filepath, width=480, height=640):
             count += 1
     shutil.rmtree(rgb_filepath)
     shutil.rmtree(grayscale_filepath)
-    col_totals = [sum(x) for x in zip(*predictions)]
+    col_totals = [float(sum(x)/len(predictions)) for x in zip(*predictions)]
     return col_totals
 
 
