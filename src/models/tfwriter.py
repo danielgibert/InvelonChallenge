@@ -52,14 +52,11 @@ def write_grayscale_images_to_tfrecords(csv_filepath, tfrecord_file):
                 #Load png to numpy
                 image_contents = tf.io.read_file(row["filename"])
                 image = tf.image.decode_jpeg(image_contents, channels=3)
-                #image = tf.image.resize(image, [48,32]) # Resize image
-                #image = tf.cast(image, tf.float32) / 255.0  # convert image to floats in [0, 1] range
                 img_string = tf.io.encode_jpeg(image)
-                #image = Image.open(row["filename"])
                 label = int(row['ID'])
                 example = image_example(img_string, label)
                 tfwriter.write(example.SerializeToString())
 
 
-#write_grayscale_images_to_tfrecords("../../data/examples/training.csv", "../../data/examples/tfrecords/training.tfrecords")
-#write_grayscale_images_to_tfrecords("../../data/examples/validation.csv", "../../data/examples/tfrecords/validation.tfrecords")
+write_grayscale_images_to_tfrecords("../../data/examples/training.csv", "../../data/examples/tfrecords/training.tfrecords")
+write_grayscale_images_to_tfrecords("../../data/examples/validation.csv", "../../data/examples/tfrecords/validation.tfrecords")
