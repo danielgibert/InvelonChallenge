@@ -1,8 +1,13 @@
 import tensorflow as tf
 
 def _parse_tfrecord_function(example, width, height):
-
-
+    """
+    Parses a single TFRecord row
+    :param example: instance
+    :param width: int
+    :param height: int
+    :return: decoded_img, category
+    """
     image_feature_description = {
         'height': tf.io.FixedLenFeature([], tf.int64),
         'width': tf.io.FixedLenFeature([], tf.int64),
@@ -22,17 +27,18 @@ def _parse_tfrecord_function(example, width, height):
     return decoded_img, parsed['label']
 
 def make_dataset(filepath, SHUFFLE_BUFFER_SIZE=1024, BATCH_SIZE=1, WIDTH=480, HEIGHT=640):
+    """
+    Creates a dataset from a TFRecord file
+    :param filepath: str
+    :param SHUFFLE_BUFFER_SIZE: int
+    :param BATCH_SIZE: int
+    :param WIDTH: int
+    :param HEIGHT: int
+    :return: TFRecord.dataset
+    """
     dataset = tf.data.TFRecordDataset(filepath)
     dataset = dataset.shuffle(SHUFFLE_BUFFER_SIZE)
     #dataset = dataset.repeat(EPOCHS)
     dataset = dataset.map(lambda x: _parse_tfrecord_function(x, WIDTH, HEIGHT))
     dataset = dataset.batch(batch_size=BATCH_SIZE)
     return dataset
-
-
-#parsed_image_dataset = make_dataset("../../data/examples/tfrecords/examples.tfrecords")
-#for (x,y) in parsed_image_dataset:
-#    print(x,y)
-
-#for img,label in parsed_image_dataset.take(2):
-#    print(img, label)

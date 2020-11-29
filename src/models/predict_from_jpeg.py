@@ -6,11 +6,11 @@ from tensorflow import keras
 
 def predict(model_filepath, img_filepath, width=480, height=640):
     """
-
-    :param model_filepath:
-    :param img_filepath:
-    :param width:
-    :param height:
+    Predicts the corresponding category of a given grayscale image
+    :param model_filepath: str
+    :param img_filepath: str
+    :param width: int
+    :param height: int
     :return:
     """
     reconstructed_model = keras.models.load_model(model_filepath)
@@ -22,7 +22,7 @@ def predict(model_filepath, img_filepath, width=480, height=640):
     return predictions
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Training models')
+    parser = argparse.ArgumentParser(description='Script to predict from jpeg')
     parser.add_argument("model_filepath",
                         type=str,
                         help="Model filepath")
@@ -40,3 +40,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     predictions = predict(args.model_filepath, args.image_filepath, args.width, args.height)
+    print(predictions)

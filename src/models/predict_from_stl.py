@@ -12,6 +12,15 @@ import shutil
 
 
 def predict(model_filepath, stl_filepath, width=480, height=640):
+    """
+    Predicts the corresponding category of a given .stl model. It generates various grayscale images from the .stl
+    model and outputs the mean of the predicted categories
+    :param model_filepath: str
+    :param img_filepath: str
+    :param width: int
+    :param height: int
+    :return:
+    """
     reconstructed_model = keras.models.load_model(model_filepath)
     predictions_list = []
     filename = stl_filepath.split("/")[-1]
@@ -27,10 +36,8 @@ def predict(model_filepath, stl_filepath, width=480, height=640):
         os.makedirs(grayscale_filepath)
     count = 0
     axis = [0.0, 0.0, 0.0]
-    # start_load_time = time.time()
+
     my_mesh = mesh.Mesh.from_file(stl_filepath)
-    # end_load_time = time.time()
-    # print("Image: {}; Load time: {}s".format(stl_filepath, end_load_time-start_load_time))
 
     for i in range(len(axis)):
         # Iterates over the axis
@@ -41,7 +48,6 @@ def predict(model_filepath, stl_filepath, width=480, height=640):
             rgb_filename = filename + "{}.jpeg".format(count)
             radians = random.randint(0, 91)
             # my_mesh_copy = copy.copy(my_mesh)
-            # start_mutation_time = time.time()
             my_mesh.rotate(axis, math.radians(radians))
             # Apply translation
             x_translation = random.randint(0, 50)
@@ -49,13 +55,8 @@ def predict(model_filepath, stl_filepath, width=480, height=640):
 
             my_mesh.x += x_translation
             my_mesh.y += y_translation
-            # end_mutation_time = time.time()
-            # print("Time modifications: {}".format(end_mutation_time-start_mutation_time))
 
-            # start_write_time = time.time()
             write_stl_data_to_img(my_mesh, rgb_filepath + rgb_filename)
-            # end_write_time = time.time()
-            # print("Saving time: {}".format(end_write_time-start_write_time))
             rgb_to_grayscale(rgb_filepath + rgb_filename, grayscale_filepath + rgb_filename)
 
             image_contents = tf.io.read_file(grayscale_filepath + rgb_filename)
@@ -64,6 +65,7 @@ def predict(model_filepath, stl_filepath, width=480, height=640):
             expanded_img = tf.expand_dims(image, axis=0)
             predictions = reconstructed_model.predict(expanded_img)
             predictions_list.append(predictions)
+
             # Turn to original
             my_mesh.rotate(axis, -math.radians(radians))
             my_mesh.x -= x_translation
@@ -76,7 +78,7 @@ def predict(model_filepath, stl_filepath, width=480, height=640):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Training models')
+    parser = argparse.ArgumentParser(description='Script to predict from stl')
     parser.add_argument("model_filepath",
                         type=str,
                         help="Model filepath")

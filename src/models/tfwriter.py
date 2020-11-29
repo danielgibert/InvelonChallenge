@@ -1,8 +1,6 @@
 import tensorflow as tf
 import csv
-from PIL import Image
-from numpy import asarray
-import numpy as np
+
 
 def _bytes_feature(value):
     """Returns a bytes_list from a string / byte."""
@@ -20,13 +18,12 @@ def _int64_feature(value):
 
 def image_example(image_string, label):
     """
-
-    :param image_string:
-    :param label:
-    :return:
+    Codification of a single image example
+    :param image_string: str
+    :param label: int
+    :return: tf.train.Example
     """
     image_shape = tf.image.decode_jpeg(image_string).shape
-    #print(image_shape[0],image_shape[1],image_shape[2])
     feature = {
       'height': _int64_feature(image_shape[0]),
       'width': _int64_feature(image_shape[1]),
@@ -39,10 +36,10 @@ def image_example(image_string, label):
 
 def write_grayscale_images_to_tfrecords(csv_filepath, tfrecord_file):
     """
-
-    :param csv_filepath:
-    :param tfrecords_filepath:
-    :return:
+    Write the grayscale images defined in the csv file into TFRecords
+    :param csv_filepath: str
+    :param tfrecords_filepath: str
+    :return: None
     """
     with tf.io.TFRecordWriter(tfrecord_file) as tfwriter:
         with open(csv_filepath, "r") as csv_file:
