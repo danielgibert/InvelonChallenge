@@ -16,11 +16,10 @@ def create_Xception_model(hyperparameters, IMG_SHAPE=(480,640,3)):
     model = tf.keras.Sequential()
     base_model = tf.keras.applications.Xception(input_shape=IMG_SHAPE,
                                                    include_top=False,
-                                                   weights='imagenet',
-                                                   pooling="avg")
+                                                   weights='imagenet')
     #base_model.trainable = False # Freeze
     model.add(base_model)
-    model.add(tf.keras.layers.Reshape((base_model.output.shape[1]*base_model.output.shape[2]*base_model.output.shape[3])))
+    model.add(tf.keras.layers.Reshape((base_model.output.shape[1]*base_model.output.shape[2]*base_model.output.shape[3],)))
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
     model.add(tf.keras.layers.Dropout(0.5))
