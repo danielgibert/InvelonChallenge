@@ -109,7 +109,7 @@ if __name__ == "__main__":
     # Loss function to minimize
     loss = keras.losses.SparseCategoricalCrossentropy(),
     # List of metrics to monitor
-    metrics = [keras.metrics.SparseCategoricalAccuracy()],
+    metrics = [keras.metrics.CategoricalAccuracy()],
     )
 
     train_dataset = make_dataset(args.training_filepath, BATCH_SIZE=args.batch_size, WIDTH=IMG_SHAPE[0],
