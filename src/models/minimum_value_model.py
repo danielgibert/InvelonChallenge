@@ -13,7 +13,7 @@ def create_Xception_model(hyperparameters, IMG_SHAPE=(480,640,3)):
                                                    include_top=False,
                                                    weights='imagenet')
     model.add(base_model)
-    model.add(tf.keras.layers.Reshape((feature_layer_shape[0] * feature_layer_shape[1] * feature_layer_shape[2],)))
+    model.add(tf.keras.layers.Reshape((base_model.output.shape[1] * base_model.output.shape[2] * base_model.output.shape[3],)))
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
     model.add(tf.keras.layers.Dropout(0.5))
@@ -27,7 +27,7 @@ def create_MobileNetV2_model(hyperparameters, IMG_SHAPE=(480,640,3)):
                                                    include_top=False,
                                                    weights='imagenet')
     model.add(base_model)
-    model.add(tf.keras.layers.Reshape((feature_layer_shape[0] * feature_layer_shape[1] * feature_layer_shape[2],)))
+    model.add(tf.keras.layers.Reshape((base_model.output.shape[1] * base_model.output.shape[2] * base_model.output.shape[3],)))
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
     model.add(tf.keras.layers.Dropout(0.5))
@@ -41,7 +41,7 @@ def create_DenseNet121_model(hyperparameters, IMG_SHAPE=(480,640,3)):
                                                    include_top=False,
                                                    weights='imagenet')
     model.add(base_model)
-    model.add(tf.keras.layers.Reshape((feature_layer_shape[0] * feature_layer_shape[1] * feature_layer_shape[2],)))
+    model.add(tf.keras.layers.Reshape((base_model.output.shape[1] * base_model.output.shape[2] * base_model.output.shape[3],)))
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
     model.add(tf.keras.layers.Dropout(0.5))
