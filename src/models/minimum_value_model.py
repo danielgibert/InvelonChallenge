@@ -20,9 +20,10 @@ def create_Xception_model(hyperparameters, IMG_SHAPE=(480,640,3)):
                                                    pooling="avg")
     #base_model.trainable = False # Freeze
     model.add(base_model)
+    model.add(tf.keras.layers.Reshape((base_model.output.shape[1]*base_model.output.shape[2]*base_model.output.shape[3])))
     model.add(tf.keras.layers.Dropout(0.5))
-    # model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
-    # model.add(tf.keras.layers.Dropout(0.5))
+    model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
+    model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["categories"], activation="softmax"))
     return model
 
@@ -140,7 +141,7 @@ if __name__ == "__main__":
 
 
     base_model.compile(
-    optimizer = keras.optimizers.RMSprop(),  # Optimizer
+    optimizer = keras.optimizers.Adadelta(),  # Optimizer
     # Loss function to minimize
     loss = keras.losses.SparseCategoricalCrossentropy(),
     # List of metrics to monitor
