@@ -21,8 +21,8 @@ def create_Xception_model(hyperparameters, IMG_SHAPE=(480,640,3)):
     #base_model.trainable = False # Freeze
     model.add(base_model)
     model.add(tf.keras.layers.Dropout(0.5))
-    model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
-    model.add(tf.keras.layers.Dropout(0.5))
+    # model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
+    # model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["categories"], activation="softmax"))
     return model
 
@@ -41,8 +41,8 @@ def create_MobileNetV2_model(hyperparameters, IMG_SHAPE=(480,640,3)):
     #base_model.trainable = False # Freeze
     model.add(base_model)
     model.add(tf.keras.layers.Dropout(0.5))
-    model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
-    model.add(tf.keras.layers.Dropout(0.5))
+    # model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
+    # model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["categories"], activation="softmax"))
     return model
 
@@ -61,8 +61,8 @@ def create_DenseNet121_model(hyperparameters, IMG_SHAPE=(480,640,3)):
     #base_model.trainable = False # Freeze
     model.add(base_model)
     model.add(tf.keras.layers.Dropout(0.5))
-    model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
-    model.add(tf.keras.layers.Dropout(0.5))
+    #model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
+    #model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["categories"], activation="softmax"))
     return model
 
