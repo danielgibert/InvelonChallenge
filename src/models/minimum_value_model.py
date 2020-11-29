@@ -26,7 +26,6 @@ def create_MobileNetV2_model(hyperparameters, IMG_SHAPE=(480,640,3)):
     base_model = tf.keras.applications.MobileNetV2(input_shape=IMG_SHAPE,
                                                    include_top=False,
                                                    weights='imagenet')
-    print(base_model.output.shape)
     model.add(base_model)
     model.add(tf.keras.layers.Reshape((feature_layer_shape[0] * feature_layer_shape[1] * feature_layer_shape[2],)))
     model.add(tf.keras.layers.Dropout(0.5))
@@ -85,6 +84,7 @@ if __name__ == "__main__":
                         type=int,
                         help="Height of the images",
                         default=640)
+    print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
     args = parser.parse_args()
     IMG_SHAPE=(args.width, args.height,3)
@@ -128,3 +128,5 @@ if __name__ == "__main__":
         # at the end of each epoch
         validation_data=validation_dataset,
     )
+    print(history)
+    base_model.save('tmp/model_{}'.format(args.model_type))
