@@ -8,6 +8,10 @@ Created by Julian Caro Linares
 jcarolinares@gmail.com
 @jcarolinares
 
+
+Adapted Thingiverse crawler to download .stl models
+New export system to adapt our folder structure
+
 '''
 
 import requests
@@ -17,7 +21,14 @@ import argparse
 import os.path
 from collections import OrderedDict
 
-stl_path = "./stls"
+
+rootPath = "/home/vdasilva@lleidanet.lnst.es/Sergi/InvelonChallenge"
+
+dataPath = rootPath + "/data"
+
+stl_path = dataPath + "/stls"
+
+#stl_path = "./stls"
 
 thingiverse_api_base = "https://api.thingiverse.com/"
 access_keyword = "?access_token="
@@ -239,7 +250,7 @@ def download_objects(rest_url, file_name, mode = "none", keywords=None):
         #old
         #file_path = "./stls/"+data_pd[object]["name"].replace(" ", "_").replace("/", "-")
         
-        file_path = "./stls/" + keywords + "/"+data_pd[object]["name"].replace(" ", "_").replace("/", "-")
+        file_path = stl_path + "/" + keywords + "/"+data_pd[object]["name"].replace(" ", "_").replace("/", "-")
 
 
         file_path_zip = "./zip_files/"+data_pd[object]["name"].replace(" ", "_").replace("/", "-")+".zip"
