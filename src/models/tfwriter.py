@@ -19,6 +19,12 @@ def _int64_feature(value):
   return tf.train.Feature(int64_list=tf.train.Int64List(value=[value]))
 
 def image_example(image_string, label):
+    """
+
+    :param image_string:
+    :param label:
+    :return:
+    """
     image_shape = tf.image.decode_jpeg(image_string).shape
     print(image_shape[0],image_shape[1],image_shape[2])
     feature = {
@@ -45,12 +51,10 @@ def write_grayscale_images_to_tfrecords(csv_filepath, tfrecord_file):
                 print(row["filename"], row['ID'])
                 #Load png to numpy
                 image_contents = tf.io.read_file(row["filename"])
-                print(type(image_contents))
                 image = tf.image.decode_jpeg(image_contents, channels=3)
                 #image = tf.image.resize(image, [48,32]) # Resize image
                 #image = tf.cast(image, tf.float32) / 255.0  # convert image to floats in [0, 1] range
                 img_string = tf.io.encode_jpeg(image)
-                print(image)
                 #image = Image.open(row["filename"])
                 label = int(row['ID'])
                 example = image_example(img_string, label)
