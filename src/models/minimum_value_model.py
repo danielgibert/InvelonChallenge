@@ -111,9 +111,21 @@ if __name__ == "__main__":
                         type=str,
                         help="Output model",
                         default=None)
-    print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
-
+    parser.add_argument("--gpu",
+                        type=int,
+                        help="GPU to use",
+                        default=0)
     args = parser.parse_args()
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+    if gpus:
+        # Restrict TensorFlow to only use the first GPU
+        try:
+            tf.config.experimental.set_visible_devices(gpus[args.gpu], 'GPU')
+            logical_gpus = tf.config.experimental.list_logical_devices('GPU')
+            print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPU")
+        except RuntimeError as e:
+            # Visible devices must be set before GPUs have been initialized
+            print(e)
     IMG_SHAPE=(args.width, args.height,3)
 
     hyperparameters = load_hyperparameters(args.hyperparameters_filepath)
