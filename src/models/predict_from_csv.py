@@ -36,7 +36,7 @@ def predict_from_csv(model_filepath, csv_filepath, output_filepath, width=480, h
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Script to predict from jpeg')
+    parser = argparse.ArgumentParser(description='Script to predict from CSV')
     parser.add_argument("model_filepath",
                         type=str,
                         help="Model filepath")
