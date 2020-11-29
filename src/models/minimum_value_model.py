@@ -7,7 +7,6 @@ import argparse
 import json
 
 def create_Xception_model(hyperparameters, IMG_SHAPE=(480,640,3)):
-    feature_layer_shape = (7,7,2048)
     model = tf.keras.Sequential()
     base_model = tf.keras.applications.Xception(input_shape=IMG_SHAPE,
                                                    include_top=False,
@@ -21,7 +20,6 @@ def create_Xception_model(hyperparameters, IMG_SHAPE=(480,640,3)):
     return model
 
 def create_MobileNetV2_model(hyperparameters, IMG_SHAPE=(480,640,3)):
-    feature_layer_shape = (7,7,1280)
     model = tf.keras.Sequential()
     base_model = tf.keras.applications.MobileNetV2(input_shape=IMG_SHAPE,
                                                    include_top=False,
@@ -35,7 +33,6 @@ def create_MobileNetV2_model(hyperparameters, IMG_SHAPE=(480,640,3)):
     return model
 
 def create_DenseNet121_model(hyperparameters, IMG_SHAPE=(480,640,3)):
-    feature_layer_shape = (7,7,2048)
     model = tf.keras.Sequential()
     base_model = tf.keras.applications.MobileNetV2(input_shape=IMG_SHAPE,
                                                    include_top=False,
