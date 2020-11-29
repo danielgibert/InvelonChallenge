@@ -10,9 +10,10 @@ def create_Xception_model(hyperparameters, IMG_SHAPE=(480,640,3)):
     model = tf.keras.Sequential()
     base_model = tf.keras.applications.Xception(input_shape=IMG_SHAPE,
                                                    include_top=False,
-                                                   weights='imagenet')
+                                                   weights='imagenet',
+                                                pooling="avg")
     model.add(base_model)
-    model.add(tf.keras.layers.Reshape((base_model.output.shape[1] * base_model.output.shape[2] * base_model.output.shape[3],)))
+    model.add(tf.keras.layers.GlobalAveragePooling2D())
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
     model.add(tf.keras.layers.Dropout(0.5))
@@ -23,9 +24,9 @@ def create_MobileNetV2_model(hyperparameters, IMG_SHAPE=(480,640,3)):
     model = tf.keras.Sequential()
     base_model = tf.keras.applications.MobileNetV2(input_shape=IMG_SHAPE,
                                                    include_top=False,
-                                                   weights='imagenet')
+                                                   weights='imagenet',
+                                                   pooling='avg')
     model.add(base_model)
-    model.add(tf.keras.layers.Reshape((base_model.output.shape[1] * base_model.output.shape[2] * base_model.output.shape[3],)))
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
     model.add(tf.keras.layers.Dropout(0.5))
@@ -34,11 +35,11 @@ def create_MobileNetV2_model(hyperparameters, IMG_SHAPE=(480,640,3)):
 
 def create_DenseNet121_model(hyperparameters, IMG_SHAPE=(480,640,3)):
     model = tf.keras.Sequential()
-    base_model = tf.keras.applications.MobileNetV2(input_shape=IMG_SHAPE,
+    base_model = tf.keras.applications.DenseNet121(input_shape=IMG_SHAPE,
                                                    include_top=False,
-                                                   weights='imagenet')
+                                                   weights='imagenet',
+                                                   pooling="avg")
     model.add(base_model)
-    model.add(tf.keras.layers.Reshape((base_model.output.shape[1] * base_model.output.shape[2] * base_model.output.shape[3],)))
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
     model.add(tf.keras.layers.Dropout(0.5))
@@ -116,7 +117,7 @@ if __name__ == "__main__":
 
 
     early_stopping_cb = tf.keras.callbacks.EarlyStopping(
-        patience=5, restore_best_weights=True
+        patience=10, restore_best_weights=True
     )
 
     print("Fit model on training data")
