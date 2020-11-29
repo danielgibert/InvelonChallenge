@@ -18,6 +18,7 @@ def create_Xception_model(hyperparameters, IMG_SHAPE=(480,640,3)):
                                                    include_top=False,
                                                    weights='imagenet',
                                                 pooling="avg")
+    base_model.trainable = False # Freeze
     model.add(base_model)
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
@@ -37,6 +38,7 @@ def create_MobileNetV2_model(hyperparameters, IMG_SHAPE=(480,640,3)):
                                                    include_top=False,
                                                    weights='imagenet',
                                                    pooling='avg')
+    base_model.trainable = False # Freeze
     model.add(base_model)
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
@@ -56,6 +58,7 @@ def create_DenseNet121_model(hyperparameters, IMG_SHAPE=(480,640,3)):
                                                    include_top=False,
                                                    weights='imagenet',
                                                    pooling="avg")
+    base_model.trainable = False # Freeze
     model.add(base_model)
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
@@ -125,7 +128,7 @@ if __name__ == "__main__":
 
 
     base_model.compile(
-    optimizer = keras.optimizers.Adam(),  # Optimizer
+    optimizer = keras.optimizers.Adam(0.0001),  # Optimizer
     # Loss function to minimize
     loss = keras.losses.SparseCategoricalCrossentropy(),
     # List of metrics to monitor
