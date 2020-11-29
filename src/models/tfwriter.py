@@ -5,18 +5,18 @@ from numpy import asarray
 import numpy as np
 
 def _bytes_feature(value):
-  """Returns a bytes_list from a string / byte."""
-  if isinstance(value, type(tf.constant(0))):
-    value = value.numpy() # BytesList won't unpack a string from an EagerTensor.
-  return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
+    """Returns a bytes_list from a string / byte."""
+    if isinstance(value, type(tf.constant(0))):
+        value = value.numpy() # BytesList won't unpack a string from an EagerTensor.
+    return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
 
 def _float_feature(value):
-  """Returns a float_list from a float / double."""
-  return tf.train.Feature(float_list=tf.train.FloatList(value=[value]))
+    """Returns a float_list from a float / double."""
+    return tf.train.Feature(float_list=tf.train.FloatList(value=[value]))
 
 def _int64_feature(value):
-  """Returns an int64_list from a bool / enum / int / uint."""
-  return tf.train.Feature(int64_list=tf.train.Int64List(value=[value]))
+    """Returns an int64_list from a bool / enum / int / uint."""
+    return tf.train.Feature(int64_list=tf.train.Int64List(value=[value]))
 
 def image_example(image_string, label):
     """
@@ -26,7 +26,7 @@ def image_example(image_string, label):
     :return:
     """
     image_shape = tf.image.decode_jpeg(image_string).shape
-    print(image_shape[0],image_shape[1],image_shape[2])
+    #print(image_shape[0],image_shape[1],image_shape[2])
     feature = {
       'height': _int64_feature(image_shape[0]),
       'width': _int64_feature(image_shape[1]),
