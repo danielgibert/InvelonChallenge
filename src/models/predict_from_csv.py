@@ -4,7 +4,7 @@ import sys
 sys.path.append("../../")
 from src.models.predict_from_stl import predict
 import numpy as np
-from sklearn.metrics.
+from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
 
 def predict_from_csv(model_filepath, csv_filepath, output_filepath, width=480, height=640):
     """
@@ -15,18 +15,25 @@ def predict_from_csv(model_filepath, csv_filepath, output_filepath, width=480, h
     :param height: int
     :return: None
     """
-    ytrue_list = 0
-    ypred_list = 0
+    ytrue_list = []
+    ypred_list = []
     with open(output_filepath, "w") as output_file:
         with open(csv_filepath, "r") as csv_file:
             reader = csv.DictReader(csv_file, fieldnames=["filename", "ID"])
             reader.__next__()
             for row in reader:
                 predictions = predict(model_filepath, row["filename"], width, height)
-                print(row["filename"], row['ID'])
                 ytrue_list.append(int(row['ID']))
                 ypred_list.append(int(np.argmax(predictions)))
-                output_file.write("{},{},{}\n".format(row['filename'], predictions), row['ID'])
+                output_file.write("{},{},{}\n".format(row['filename'], int(np.argmax(predictions)), (row['ID'])))
+    accuracy = accuracy_score(ytrue_list, ypred_list)
+    cm = confusion_matrix(ytrue_list, ypred_list)
+    f1score = f1_score(ytrue_list, ypred_list)
+    output_file.write("accuracy,{}".format(accuracy))
+    output_file.write("f1score,{}".format(f1score))
+    output_file.write("accuracy,{}".format(cm))
+    print(accuracy, f1_score, cm)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Script to predict from jpeg')

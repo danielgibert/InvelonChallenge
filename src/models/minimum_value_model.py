@@ -17,8 +17,8 @@ def create_Xception_model(hyperparameters, IMG_SHAPE=(480,640,3)):
     base_model = tf.keras.applications.Xception(input_shape=IMG_SHAPE,
                                                    include_top=False,
                                                    weights='imagenet',
-                                                pooling="avg")
-    base_model.trainable = False # Freeze
+                                                   pooling="avg")
+    #base_model.trainable = False # Freeze
     model.add(base_model)
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
@@ -38,7 +38,7 @@ def create_MobileNetV2_model(hyperparameters, IMG_SHAPE=(480,640,3)):
                                                    include_top=False,
                                                    weights='imagenet',
                                                    pooling='avg')
-    base_model.trainable = False # Freeze
+    #base_model.trainable = False # Freeze
     model.add(base_model)
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
@@ -58,7 +58,7 @@ def create_DenseNet121_model(hyperparameters, IMG_SHAPE=(480,640,3)):
                                                    include_top=False,
                                                    weights='imagenet',
                                                    pooling="avg")
-    base_model.trainable = False # Freeze
+    #base_model.trainable = False # Freeze
     model.add(base_model)
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
