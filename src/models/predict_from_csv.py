@@ -4,6 +4,7 @@ import sys
 sys.path.append("../../")
 from src.models.predict_from_stl import predict
 import numpy as np
+from sklearn.metrics.
 
 def predict_from_csv(model_filepath, csv_filepath, output_filepath, width=480, height=640):
     """
@@ -14,15 +15,17 @@ def predict_from_csv(model_filepath, csv_filepath, output_filepath, width=480, h
     :param height: int
     :return: None
     """
-    correct_classifications = 0
-    incorrect_classifications = 0
+    ytrue_list = 0
+    ypred_list = 0
     with open(output_filepath, "w") as output_file:
         with open(csv_filepath, "r") as csv_file:
             reader = csv.DictReader(csv_file, fieldnames=["filename", "ID"])
             reader.__next__()
             for row in reader:
-                print(row["filename"], row['ID'], np.argmax())
                 predictions = predict(model_filepath, row["filename"], width, height)
+                print(row["filename"], row['ID'])
+                ytrue_list.append(int(row['ID']))
+                ypred_list.append(int(np.argmax(predictions)))
                 output_file.write("{},{},{}\n".format(row['filename'], predictions), row['ID'])
 
 if __name__ == "__main__":
