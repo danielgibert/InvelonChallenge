@@ -57,5 +57,5 @@ def write_grayscale_images_to_tfrecords(csv_filepath, tfrecord_file):
                 tfwriter.write(example.SerializeToString())
 
 
-write_grayscale_images_to_tfrecords("../../data/examples/training.csv", "../../data/examples/tfrecords/training.tfrecords")
-write_grayscale_images_to_tfrecords("../../data/examples/validation.csv", "../../data/examples/tfrecords/validation.tfrecords")
+#write_grayscale_images_to_tfrecords("../../data/examples/training.csv", "../../data/examples/tfrecords/training.tfrecords")
+#write_grayscale_images_to_tfrecords("../../data/examples/validation.csv", "../../data/examples/tfrecords/validation.tfrecords")

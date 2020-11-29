@@ -124,16 +124,7 @@ def preprocess(stl_filepath):
             my_mesh.y -= y_translation
             count += 1
 
-    # ToDo Object translation
-    # Translate 2 points over the X axis
-    # my_mesh.x += 2
-
-    # Rotate 90 degrees over the X axis
-    # my_mesh.rotate([0.5, 0.0, 0.0], math.radians(90))
-    # Translate 2 points over the X and Y points
-    # my_mesh.x += 2
-    # my_mesh.y += 2
-#preprocess('../../data/examples/Ender+3+Bed+Level/files/Bed_Levelling_Ender_3.stl', '../../data/examples/Ender+3+Bed+Level/files/rgb', '../../data/examples/Ender+3+Bed+Level/files/grayscale')
+#preprocess_v2('../../data/examples/Ender+3+Bed+Level/files/Bed_Levelling_Ender_3.stl', '../../data/examples/Ender+3+Bed+Level/files/rgb/', '../../data/examples/Ender+3+Bed+Level/files/grayscale/')
 
 #preprocess('../../data/examples/Ender+3+Bed+Level/files/Bed_Levelling_Ender_3.stl')
 #preprocess('../../data/examples/Psyduck(Pokemon)/files/Psyduck.stl')
