@@ -13,7 +13,6 @@ def create_Xception_model(hyperparameters, IMG_SHAPE=(480,640,3)):
                                                    weights='imagenet',
                                                 pooling="avg")
     model.add(base_model)
-    model.add(tf.keras.layers.GlobalAveragePooling2D())
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(hyperparameters["hidden_neurons"], activation="relu"))
     model.add(tf.keras.layers.Dropout(0.5))
