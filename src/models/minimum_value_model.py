@@ -140,7 +140,7 @@ if __name__ == "__main__":
 
 
     base_model.compile(
-    optimizer = keras.optimizers.Adam(0.0001),  # Optimizer
+    optimizer = keras.optimizers.RMSprop(),  # Optimizer
     # Loss function to minimize
     loss = keras.losses.SparseCategoricalCrossentropy(),
     # List of metrics to monitor
