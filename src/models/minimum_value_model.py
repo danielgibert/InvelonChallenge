@@ -7,6 +7,12 @@ import argparse
 import json
 
 def create_Xception_model(hyperparameters, IMG_SHAPE=(480,640,3)):
+    """
+    Creates a pretrained Xception model.
+    :param hyperparameters: dict
+    :param IMG_SHAPE: tuple
+    :return:
+    """
     model = tf.keras.Sequential()
     base_model = tf.keras.applications.Xception(input_shape=IMG_SHAPE,
                                                    include_top=False,
@@ -20,6 +26,12 @@ def create_Xception_model(hyperparameters, IMG_SHAPE=(480,640,3)):
     return model
 
 def create_MobileNetV2_model(hyperparameters, IMG_SHAPE=(480,640,3)):
+    """
+    Creates a pretrained MobileNetV2 model.
+    :param hyperparameters: dict
+    :param IMG_SHAPE: tuple
+    :return:
+    """
     model = tf.keras.Sequential()
     base_model = tf.keras.applications.MobileNetV2(input_shape=IMG_SHAPE,
                                                    include_top=False,
@@ -33,6 +45,12 @@ def create_MobileNetV2_model(hyperparameters, IMG_SHAPE=(480,640,3)):
     return model
 
 def create_DenseNet121_model(hyperparameters, IMG_SHAPE=(480,640,3)):
+    """
+    Creates a pretrained DenseNet model
+    :param hyperparameters: dict
+    :param IMG_SHAPE: tuple
+    :return:
+    """
     model = tf.keras.Sequential()
     base_model = tf.keras.applications.DenseNet121(input_shape=IMG_SHAPE,
                                                    include_top=False,
@@ -47,6 +65,11 @@ def create_DenseNet121_model(hyperparameters, IMG_SHAPE=(480,640,3)):
 
 
 def load_hyperparameters(hyperparameters_filepath):
+    """
+    Loads the hyperparameters of the network into a dictionary-like structure
+    :param hyperparameters_filepath: str
+    :return: dict
+    """
     with open(hyperparameters_filepath, "r") as hyperparameters_file:
         hyperparameters = json.load(hyperparameters_file)
     return hyperparameters

@@ -5,13 +5,20 @@ from tensorflow import keras
 
 
 def predict(model_filepath, img_filepath, width=480, height=640):
+    """
+
+    :param model_filepath:
+    :param img_filepath:
+    :param width:
+    :param height:
+    :return:
+    """
     reconstructed_model = keras.models.load_model(model_filepath)
     image_contents = tf.io.read_file(img_filepath)
     image = tf.image.decode_jpeg(image_contents, channels=3)
     image = tf.image.resize(image, [width, height])
     expanded_img = tf.expand_dims(image, axis=0)
     predictions = reconstructed_model.predict(expanded_img)
-    print(predictions)
     return predictions
 
 if __name__ == "__main__":
@@ -32,4 +39,4 @@ if __name__ == "__main__":
                         default=640)
     args = parser.parse_args()
 
-    predict(args.model_filepath, args.image_filepath, args.width, args.height)
+    predictions = predict(args.model_filepath, args.image_filepath, args.width, args.height)
