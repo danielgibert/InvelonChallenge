@@ -84,6 +84,10 @@ if __name__ == "__main__":
                         type=int,
                         help="Height of the images",
                         default=640)
+    parser.add_argument("--output_model",
+                        type=str,
+                        help="Output model",
+                        default=None)
     print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
     args = parser.parse_args()
@@ -129,4 +133,7 @@ if __name__ == "__main__":
         validation_data=validation_dataset,
     )
     print(history)
-    base_model.save('tmp/model_{}'.format(args.model_type))
+    if args.output_model is None:
+        base_model.save('tmp/model_{}'.format(args.model_type))
+    else:
+        base_model.save(args.output_model)
