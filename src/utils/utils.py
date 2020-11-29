@@ -18,7 +18,6 @@ def write_stl_data_to_img(your_mesh, output_filename):
 
     # Show the plot to the screen
     pyplot.axis('off')
-    print(f"Save figure in: {output_filename}")
     pyplot.savefig(output_filename)
 
 def rgb_to_grayscale(input_filename, output_filename):
