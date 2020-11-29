@@ -169,6 +169,6 @@ if __name__ == "__main__":
     )
     print(history)
     if args.output_model is None:
-        base_model.save('tmp/model_{}'.format(args.model_type))
+        base_model.save('tmp/model_{}_{}'.format(args.model_type, args.gpu))
     else:
         base_model.save(args.output_model)
